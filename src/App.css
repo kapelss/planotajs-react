@@ -1,0 +1,95 @@
+body {
+  font-family: sans-serif;
+  background-image: linear-gradient(to right, blue, lightblue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30rem;
+}
+
+h1 {
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+input {
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 2rem;
+  color: black;
+  background-color: white;
+  padding: 0.5rem 1rem;
+}
+
+.pievienot-btn {
+  border: 2px solid #005fa3;
+  border-radius: 5px;
+  font-size: 2rem;
+  background-color: #0074d9;
+  font-weight: bold;
+  color: white;
+  margin: 5px;
+  padding: 0.5rem 1rem;
+}
+
+.pievienot-btn:hover {
+  background-color: #01559e;
+  transform: scale(1.02);
+  transition: transform 0.3s;
+
+}
+
+.pievienot-btn:active {
+  transform: scale(0.96);
+  transition: transform 0.1s;
+}
+
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+ul li {
+  background-color: darkblue;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 5px;
+}
+
+.move-btn {
+  font-size: 1.5rem;
+  border-radius: 5px;
+  border: none;
+  background: #005fa3;
+  color: white;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  
+}
+
+.move-btn:hover {
+  transform: scale(1.02);
+  transition: transform 0.1s;
+  background-color: #01559e;
+
+}
+
+.move-btn:active {
+  transform: scale(0.96);
+  transition: transform 0.1s;
+}
