@@ -8,6 +8,10 @@ function App() {
   // Stāvoklis, lai saglabātu visu uzdevumu masīvu
   const [uzdevumi, setUzdevumi] = useState([]);
 
+  // Stāvoklis rediģēšanai
+  const [redigejamsIdx, setRedigejamsIdx] = useState(null);
+  const [redigejamaisTeksts, setRedigejamaisTeksts] = useState('');
+
   //Pievieno uzdevumu zem ievades loga
   function pievienotUzdevumu() {
     // Pievieno uzdevumu tikai ja ievade nav tukša vai tikai atstarpes
@@ -17,6 +21,29 @@ function App() {
       // Iztīra ievades lauku pēc pievienošanas
       setIevade('');
     }
+  }
+
+  // Sāk uzdevuma rediģēšanu
+  function saktRedigesanu(idx) {
+    setRedigejamsIdx(idx);
+    setRedigejamaisTeksts(uzdevumi[idx]);
+  }
+
+  // Saglabā rediģēto uzdevumu
+  function saglabatRedigesanu() {
+    if (redigejamaisTeksts.trim() !== '') {
+      const jaunsUzdevums = [...uzdevumi];
+      jaunsUzdevums[redigejamsIdx] = redigejamaisTeksts;
+      setUzdevumi(jaunsUzdevums);
+      setRedigejamsIdx(null);
+      setRedigejamaisTeksts('');
+    }
+  }
+
+  // Atceļ rediģēšanu
+  function atceltRedigesanu() {
+    setRedigejamsIdx(null);
+    setRedigejamaisTeksts('');
   }
 
   // Pārvieto uzdevumu augstāk
@@ -51,36 +78,78 @@ function App() {
        required placeholder='Ieavadi uzdevumu...' 
        value={ievade}
        // Atjaunina stāvokli pie katras ievades izmaiņas
-       onChange={e => setIevade(e.target.value)}></input>
+       onChange={function(e) { setIevade(e.target.value); }}></input>
       <button className='pievienot-btn' onClick={pievienotUzdevumu}>Pievienot</button> 
     </div>
     <div>
       <ul>
         {/* Iziet cauri uzdevumu masīvam, lai renderētu katru uzdevumu kā saraksta elementu */}
-        {uzdevumi.map((uzd, idx) => (
-          <li key={idx}>
-            <span>{uzd}</span>
-          <span className='button-group'>
-            <button className='move-btn'
-            onClick={() => augstak(idx)}
-            // Atspējo pogu, ja uzdevums jau ir augšā
-            disabled={idx === 0}
-            style={{ marginLeft: '5px' }}
-            >
-              👆
-            </button>
-            <button
-            className='move-btn'
-            onClick={() => zemak(idx)}
-            // Atspējo pogu, ja uzdevums jau ir apakšā
-            disabled={idx === uzdevumi.length - 1}
-            style={{ marginLeft: '5px' }}
-            >
-              👇
-            </button>
-          </span>
-          </li>
-        ))}
+        {uzdevumi.map(function(uzd, idx) {
+          return (
+            <li key={idx}>
+              {redigejamsIdx === idx ? (
+                // Rediģēšanas režīms
+                <>
+                  <input
+                    type="text"
+                    value={redigejamaisTeksts}
+                    onChange={function(e) { setRedigejamaisTeksts(e.target.value); }}
+                    onKeyPress={function(e) {
+                      if (e.key === 'Enter') {
+                        saglabatRedigesanu();
+                      }
+                    }}
+                  />
+                  <button 
+                    className='move-btn' 
+                    onClick={saglabatRedigesanu}
+                    style={{ marginLeft: '5px' }}
+                  >
+                    ✅
+                  </button>
+                  <button 
+                    className='move-btn' 
+                    onClick={atceltRedigesanu}
+                    style={{ marginLeft: '5px' }}
+                  >
+                    ❌
+                  </button>
+                </>
+              ) : (
+                // Parādīšanas režīms
+                <>
+                  <span>{uzd}</span>
+                  <span className='button-group'>
+                    <button
+                      className='move-btn'
+                      onClick={function() { saktRedigesanu(idx); }}
+                      style={{ marginLeft: '5px' }}
+                    >
+                      ✏️
+                    </button>
+                    <button className='move-btn'
+                      onClick={function() { augstak(idx); }}
+                      // Atspējo pogu, ja uzdevums jau ir augšā
+                      disabled={idx === 0}
+                      style={{ marginLeft: '5px' }}
+                    >
+                      👆
+                    </button>
+                    <button
+                      className='move-btn'
+                      onClick={function() { zemak(idx); }}
+                      // Atspējo pogu, ja uzdevums jau ir apakšā
+                      disabled={idx === uzdevumi.length - 1}
+                      style={{ marginLeft: '5px' }}
+                    >
+                      👇
+                    </button>
+                  </span>
+                </>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
     </>
