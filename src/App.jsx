@@ -67,6 +67,15 @@ function App() {
     [jaunsUzdevums[idx], jaunsUzdevums[idx + 1]] = [jaunsUzdevums[idx + 1], jaunsUzdevums[idx]];
     setUzdevumi(jaunsUzdevums);
   }
+
+  function dzest(idx) {
+    // Izveido kopiju masīvam
+    const jaunsUzdevums = [...uzdevumi];
+    // Izdzēš uzdevumu ar ideksu idx, izmantojot splice metodi
+    jaunsUzdevums.splice(idx, 1);
+    // Atjaunina stāvokli ar jauno masīvu
+    setUzdevumi(jaunsUzdevums);
+  }
   
   // Renderē HTML elementus lapā
   return (
@@ -75,10 +84,15 @@ function App() {
     <div>
       <input
        type="text" 
-       required placeholder='Ieavadi uzdevumu...' 
+       required placeholder='Ievadi uzdevumu...' 
        value={ievade}
        // Atjaunina stāvokli pie katras ievades izmaiņas
-       onChange={function(e) { setIevade(e.target.value); }}></input>
+       onChange={function(e) { setIevade(e.target.value); }}
+       onKeyPress={function(e) {
+        if (e.key === 'Enter') {
+          pievienotUzdevumu();
+        }
+       }}></input>
       <button className='pievienot-btn' onClick={pievienotUzdevumu}>Pievienot</button> 
     </div>
     <div>
@@ -89,7 +103,7 @@ function App() {
             <li key={idx}>
               {redigejamsIdx === idx ? (
                 // Rediģēšanas režīms
-                <>
+                <>  
                   <input
                     type="text"
                     value={redigejamaisTeksts}
@@ -120,6 +134,13 @@ function App() {
                 <>
                   <span>{uzd}</span>
                   <span className='button-group'>
+                    <button
+                    className='move-btn'
+                    onClick={function() { dzest(idx); }}
+                    style={{ marginLeft: '5px' }}
+                    >
+                      🗑️
+                    </button>
                     <button
                       className='move-btn'
                       onClick={function() { saktRedigesanu(idx); }}
