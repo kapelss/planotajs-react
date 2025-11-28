@@ -117,14 +117,12 @@ function App() {
                   <button 
                     className='move-btn' 
                     onClick={saglabatRedigesanu}
-                    style={{ marginLeft: '5px' }}
                   >
                     ✅
                   </button>
                   <button 
                     className='move-btn' 
                     onClick={atceltRedigesanu}
-                    style={{ marginLeft: '5px' }}
                   >
                     ❌
                   </button>
@@ -137,22 +135,19 @@ function App() {
                     <button
                     className='move-btn'
                     onClick={function() { dzest(idx); }}
-                    style={{ marginLeft: '5px' }}
                     >
                       🗑️
                     </button>
                     <button
                       className='move-btn'
                       onClick={function() { saktRedigesanu(idx); }}
-                      style={{ marginLeft: '5px' }}
                     >
                       ✏️
                     </button>
                     <button className='move-btn'
                       onClick={function() { augstak(idx); }}
-                      // Atspējo pogu, ja uzdevums jau ir augšā
+                      // Atspējo pogu, ja uzdevums jau ir  pašā augšā
                       disabled={idx === 0}
-                      style={{ marginLeft: '5px' }}
                     >
                       👆
                     </button>
@@ -161,7 +156,6 @@ function App() {
                       onClick={function() { zemak(idx); }}
                       // Atspējo pogu, ja uzdevums jau ir apakšā
                       disabled={idx === uzdevumi.length - 1}
-                      style={{ marginLeft: '5px' }}
                     >
                       👇
                     </button>

@@ -23,7 +23,7 @@ input {
 }
 
 .pievienot-btn {
-  border: 2px solid #005fa3;
+  border: none;
   border-radius: 5px;
   font-size: 2rem;
   background-color: #0074d9;
@@ -57,6 +57,7 @@ ul li {
   color: white;
   font-size: 2rem;
   padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   border-radius: 5px;
   width: 100%;
